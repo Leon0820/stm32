@@ -261,50 +261,50 @@ void STM_REDBULL_LEDToggle(Led_TypeDef Led)
 //  return GPIO_ReadInputDataBit(BUTTON_PORT[Button], BUTTON_PIN[Button]);
 //}
 
-///**
-//  * @brief  Configures COM port.
-//  * @param  COM: Specifies the COM port to be configured.
-//  *   This parameter can be one of following parameters:    
-//  *     @arg COM1
-//  *     @arg COM2  
-//  * @param  USART_InitStruct: pointer to a USART_InitTypeDef structure that
-//  *   contains the configuration information for the specified USART peripheral.
-//  * @retval None
-//  */
-//void STM_REDBULL_COMInit(COM_TypeDef COM, USART_InitTypeDef* USART_InitStruct)
-//{
-//  GPIO_InitTypeDef GPIO_InitStructure;
+/**
+  * @brief  Configures COM port.
+  * @param  COM: Specifies the COM port to be configured.
+  *   This parameter can be one of following parameters:    
+  *     @arg COM1
+  *     @arg COM2  
+  * @param  USART_InitStruct: pointer to a USART_InitTypeDef structure that
+  *   contains the configuration information for the specified USART peripheral.
+  * @retval None
+  */
+void STM_REDBULL_COMInit(COM_TypeDef COM, USART_InitTypeDef* USART_InitStruct)
+{
+  GPIO_InitTypeDef GPIO_InitStructure;
 
-//  /* Enable GPIO clock */
-//  RCC_APB2PeriphClockCmd(COM_TX_PORT_CLK[COM] | COM_RX_PORT_CLK[COM] | RCC_APB2Periph_AFIO, ENABLE);
+  /* Enable GPIO clock */
+  RCC_APB2PeriphClockCmd(COM_TX_PORT_CLK[COM] | COM_RX_PORT_CLK[COM] | RCC_APB2Periph_AFIO, ENABLE);
 
-//  /* Enable UART clock */
-//  if (COM == COM1)
-//  {
-//    RCC_APB2PeriphClockCmd(COM_USART_CLK[COM], ENABLE); 
-//  }
-//  else
-//  {
-//    RCC_APB1PeriphClockCmd(COM_USART_CLK[COM], ENABLE);
-//  }
+  /* Enable UART clock */
+  if (COM == COM1)
+  {
+    RCC_APB2PeriphClockCmd(COM_USART_CLK[COM], ENABLE); 
+  }
+  else
+  {
+    RCC_APB1PeriphClockCmd(COM_USART_CLK[COM], ENABLE);
+  }
 
-//  /* Configure USART Tx as alternate function push-pull */
-//  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-//  GPIO_InitStructure.GPIO_Pin = COM_TX_PIN[COM];
-//  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-//  GPIO_Init(COM_TX_PORT[COM], &GPIO_InitStructure);
+  /* Configure USART Tx as alternate function push-pull */
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  GPIO_InitStructure.GPIO_Pin = COM_TX_PIN[COM];
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_Init(COM_TX_PORT[COM], &GPIO_InitStructure);
 
-//  /* Configure USART Rx as input floating */
-//  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-//  GPIO_InitStructure.GPIO_Pin = COM_RX_PIN[COM];
-//  GPIO_Init(COM_RX_PORT[COM], &GPIO_InitStructure);
+  /* Configure USART Rx as input floating */
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_InitStructure.GPIO_Pin = COM_RX_PIN[COM];
+  GPIO_Init(COM_RX_PORT[COM], &GPIO_InitStructure);
 
-//  /* USART configuration */
-//  USART_Init(COM_USART[COM], USART_InitStruct);
-//    
-//  /* Enable USART */
-//  USART_Cmd(COM_USART[COM], ENABLE);
-//}
+  /* USART configuration */
+  USART_Init(COM_USART[COM], USART_InitStruct);
+    
+  /* Enable USART */
+  USART_Cmd(COM_USART[COM], ENABLE);
+}
 
 ///**
 //  * @brief  DeInitializes the SDIO interface.

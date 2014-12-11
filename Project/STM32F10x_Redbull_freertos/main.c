@@ -39,13 +39,17 @@
 
 #define Background_Task_PRIO    ( tskIDLE_PRIORITY  + 10 )
 #define Background_Task_STACK   ( 512 )
+#define LED_Task_PRIO    ( tskIDLE_PRIORITY  + 10 )
+#define LED_Task_STACK   ( 512 )
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-xTaskHandle                   Task_Handle;
+xTaskHandle                   Background_Task_Handle;
+xTaskHandle                   LED_Task_Handle;
 
 /* Private function prototypes -----------------------------------------------*/
 static void Background_Task(void * pvParameters);
+static void LED_Task(void * pvParameters);
 
 
 /* Private functions ---------------------------------------------------------*/
@@ -58,15 +62,31 @@ static void Background_Task(void * pvParameters);
 int main(void)
 {
   NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
+	  /* Initilize the BSP layer */
+  STM_REDBULL_LEDInit();
+	STM3210E_LCD_Init();
+
+  /* Display message on STM3210X-REDBULL LCD *************************************/
+  /* Clear the LCD */ 
+  LCD_Clear(LCD_COLOR_WHITE);
+
+  /* Set the LCD Back Color */
+  LCD_SetBackColor(LCD_COLOR_BLUE);
+  /* Set the LCD Text Color */
+  LCD_SetTextColor(LCD_COLOR_WHITE);
+  
   
   /* Create background task */
   xTaskCreate(Background_Task,
-              (signed char const*)"BK_GND",
+              "BK_GND",
               Background_Task_STACK,
               NULL,
               Background_Task_PRIO,
-              &Task_Handle);
-  
+              &Background_Task_Handle);
+	  xTaskCreate(LED_Task,"LED1_Task",LED_Task_STACK,(void *)1,LED_Task_PRIO,&LED_Task_Handle);
+		xTaskCreate(LED_Task,"LED2_Task",LED_Task_STACK,(void *)2,LED_Task_PRIO,&LED_Task_Handle);
+    xTaskCreate(LED_Task,"LED2_Task",LED_Task_STACK,(void *)3,LED_Task_PRIO,&LED_Task_Handle);
+		xTaskCreate(LED_Task,"LED2_Task",LED_Task_STACK,(void *)4,LED_Task_PRIO,&LED_Task_Handle);
   /* Start the FreeRTOS scheduler */
   vTaskStartScheduler();
   
@@ -79,24 +99,36 @@ int main(void)
 static void Background_Task(void * pvParameters)
 {
   static uint32_t ticks = 0;
-  
-  /* Initilize the BSP layer */
-  STM_REDBULL_LEDInit();
-  
+	static uint32_t minutes = 0;
+	static uint32_t hours = 0;
+	char str[9]="00:00:00";
+	portTickType xLastWakeTime;
+  xLastWakeTime = xTaskGetTickCount();
  
   /* Run the background task */
   while (1)
   {
-    if ( ticks++ > 1000000 )
-    {
-      ticks = 0;
+		//STM_REDBULL_LEDToggle(LED1);
+		vTaskDelayUntil( &xLastWakeTime, ( 1000 / portTICK_RATE_MS ) );
+		ticks++;
+		if(ticks==60){ticks=0;minutes++;}
+		if(minutes==60){minutes=0;hours++;}
+		sprintf(str,"%02d:%02d:%02d", hours, minutes, ticks);
+		LCD_DisplayStringLine(LCD_LINE_0, (uint8_t *)str);
+  }
+}
 
-      /* toggle LED1..4 each 100ms */
-      STM_REDBULL_LEDToggle(LED1);
-      STM_REDBULL_LEDToggle(LED2);
-      STM_REDBULL_LEDToggle(LED3);
-      STM_REDBULL_LEDToggle(LED4);
-    }
+static void LED_Task(void * pvParameters)
+{
+	int LedNum;
+	portTickType xLastWakeTime;
+  xLastWakeTime = xTaskGetTickCount();
+  LedNum = (int)pvParameters;
+  /* Run the background task */
+  while (1)
+  {
+		STM_REDBULL_LEDToggle(LedNum);
+		vTaskDelayUntil( &xLastWakeTime, ( 200 * LedNum / portTICK_RATE_MS ) );
   }
 }
 

@@ -22,6 +22,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x.h"
 #include "stm32_redbull.h"
+#include "stm32_redbull_lcd.h"
 #include <stdio.h>
 
 
@@ -80,21 +81,21 @@ int main(void)
   STM_REDBULL_LEDInit();
 
 
-//  /* Initialize the LCD */
-//  STM3210E_LCD_Init();
+  /* Initialize the LCD */
+  STM3210E_LCD_Init();
 
 
-//  /* Display message on STM3210X-REDBULL LCD *************************************/
-//  /* Clear the LCD */ 
-//  LCD_Clear(LCD_COLOR_WHITE);
+  /* Display message on STM3210X-REDBULL LCD *************************************/
+  /* Clear the LCD */ 
+  LCD_Clear(LCD_COLOR_WHITE);
 
-//  /* Set the LCD Back Color */
-//  LCD_SetBackColor(LCD_COLOR_BLUE);
-//  /* Set the LCD Text Color */
-//  LCD_SetTextColor(LCD_COLOR_WHITE);
-//  LCD_DisplayStringLine(LCD_LINE_0, (uint8_t *)MESSAGE1);
-//  LCD_DisplayStringLine(LCD_LINE_1, (uint8_t *)MESSAGE2);
-//  LCD_DisplayStringLine(LCD_LINE_2, (uint8_t *)MESSAGE3);
+  /* Set the LCD Back Color */
+  LCD_SetBackColor(LCD_COLOR_BLUE);
+  /* Set the LCD Text Color */
+  LCD_SetTextColor(LCD_COLOR_WHITE);
+  LCD_DisplayStringLine(LCD_LINE_0, (uint8_t *)MESSAGE1);
+  LCD_DisplayStringLine(LCD_LINE_1, (uint8_t *)MESSAGE2);
+  LCD_DisplayStringLine(LCD_LINE_2, (uint8_t *)MESSAGE3);
 
   /* Retarget the C library printf function to the USARTx, can be USART1 or USART2
      depending on the REDBULL board you are using ********************************/

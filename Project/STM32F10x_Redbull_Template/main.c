@@ -41,9 +41,6 @@
 /* Private variables ---------------------------------------------------------*/
  USART_InitTypeDef USART_InitStructure;
  
- Point Points[4]={{0,200},{100,100},{200,200},{100,300}};
- 
- extern u8 gImage_logo[];
 
 /* Private function prototypes -----------------------------------------------*/
 #ifdef __GNUC__
@@ -103,14 +100,12 @@ int main(void)
   LCD_SetBackColor(LCD_COLOR_BLUE);
   /* Set the LCD Text Color */
   LCD_SetTextColor(LCD_COLOR_WHITE);
-//	
-//	
-//  LCD_DisplayStringLine(LCD_LINE_0, (uint8_t *)MESSAGE1);
-//  LCD_DisplayStringLine(LCD_LINE_1, (uint8_t *)MESSAGE2);
-//  LCD_DisplayStringLine(LCD_LINE_2, (uint8_t *)MESSAGE3);
+	
+	
+  LCD_DisplayStringLine(LCD_LINE_0, (uint8_t *)MESSAGE1);
+  LCD_DisplayStringLine(LCD_LINE_1, (uint8_t *)MESSAGE2);
+  LCD_DisplayStringLine(LCD_LINE_2, (uint8_t *)MESSAGE3);
 
-//LCD_DrawMonoPict(gImage_logo);
-LCD_ShowPicture(gImage_logo);
 
   /* Retarget the C library printf function to the USARTx, can be USART1 or USART2
      depending on the REDBULL board you are using ********************************/

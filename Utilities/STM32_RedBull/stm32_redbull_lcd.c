@@ -204,8 +204,8 @@ void STM3210E_LCD_Init(void)
 	    LCD_WriteReg(0x0025,0x8000);   
 //	    LCD_WriteReg(0x004f,0);        /* 行首址0 */
 //	    LCD_WriteReg(0x004e,0);        /* 列首址0 */
-    LCD_SetFont(&LCD_DEFAULT_FONT);
-  }
+  	LCD_SetFont(&LCD_DEFAULT_FONT);
+	}
 	_delay_(5);   /* delay 50 ms */		
 }
 

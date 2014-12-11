@@ -30,4 +30,6 @@
 .\stm3210e-redbull\main.o: ..\..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
 .\stm3210e-redbull\main.o: ..\..\..\Utilities\STM32_RedBull\stm32_redbull.h
 .\stm3210e-redbull\main.o: ..\..\..\Utilities\STM32_RedBull\stm32_REDBULL.h
+.\stm3210e-redbull\main.o: ..\..\..\Utilities\STM32_RedBull\stm32_redbull_lcd.h
+.\stm3210e-redbull\main.o: ..\..\..\Utilities\STM32_RedBull\../Common/fonts.h
 .\stm3210e-redbull\main.o: D:\Program Files\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h

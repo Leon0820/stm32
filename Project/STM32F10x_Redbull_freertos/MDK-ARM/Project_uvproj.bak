@@ -48,7 +48,7 @@
           <OutputName>STM3210E-RedBull</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
-          <CreateHexFile>0</CreateHexFile>
+          <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\STM3210E-RedBull\</ListingPath>
@@ -567,11 +567,6 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\Utilities\STM32_RedBull\stm32_redbull_lcd.c</FilePath>
             </File>
-            <File>
-              <FileName>logo.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Utilities\STM32_RedBull\logo.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -618,9 +613,9 @@
           <GroupName>MDK-ARM</GroupName>
           <Files>
             <File>
-              <FileName>startup_stm32f10x_hd.s</FileName>
+              <FileName>startup_stm32f10x_hd_freertos.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup\arm\startup_stm32f10x_hd.s</FilePath>
+              <FilePath>..\..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup\arm\startup_stm32f10x_hd_freertos.s</FilePath>
             </File>
           </Files>
         </Group>

@@ -28,15 +28,15 @@
 ".\stm3210e-redbull\system_stm32f10x.o"
 ".\stm3210e-redbull\stm32_redbull.o"
 ".\stm3210e-redbull\stm32_redbull_lcd.o"
-".\stm3210e-redbull\logo.o"
 ".\stm3210e-redbull\croutine.o"
 ".\stm3210e-redbull\list.o"
 ".\stm3210e-redbull\queue.o"
 ".\stm3210e-redbull\tasks.o"
 ".\stm3210e-redbull\timers.o"
-".\stm3210e-redbull\port_cm3.o"
 ".\stm3210e-redbull\heap_2.o"
-".\stm3210e-redbull\startup_stm32f10x_hd.o"
+".\stm3210e-redbull\port.o"
+".\stm3210e-redbull\event_groups.o"
+".\stm3210e-redbull\startup_stm32f10x_hd_freertos.o"
 --library_type=microlib --strict --scatter ".\STM3210E-RedBull\STM3210E-RedBull.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
