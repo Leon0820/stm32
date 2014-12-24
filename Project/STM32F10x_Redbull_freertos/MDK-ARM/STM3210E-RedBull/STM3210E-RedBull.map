@@ -392,36 +392,6 @@ Section Cross References
     port.o(i.xPortStartScheduler) refers to port.o(.data) for .data
     port.o(i.xPortSysTickHandler) refers to port.o(.emb_text) for ulPortSetInterruptMask
     port.o(i.xPortSysTickHandler) refers to tasks.o(i.xTaskIncrementTick) for xTaskIncrementTick
-    event_groups.o(i.vEventGroupClearBitsCallback) refers to event_groups.o(i.xEventGroupClearBits) for xEventGroupClearBits
-    event_groups.o(i.vEventGroupDelete) refers to tasks.o(i.vTaskSuspendAll) for vTaskSuspendAll
-    event_groups.o(i.vEventGroupDelete) refers to tasks.o(i.xTaskRemoveFromUnorderedEventList) for xTaskRemoveFromUnorderedEventList
-    event_groups.o(i.vEventGroupDelete) refers to heap_2.o(i.vPortFree) for vPortFree
-    event_groups.o(i.vEventGroupDelete) refers to tasks.o(i.xTaskResumeAll) for xTaskResumeAll
-    event_groups.o(i.vEventGroupSetBitsCallback) refers to event_groups.o(i.xEventGroupSetBits) for xEventGroupSetBits
-    event_groups.o(i.xEventGroupClearBits) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
-    event_groups.o(i.xEventGroupClearBits) refers to port.o(i.vPortExitCritical) for vPortExitCritical
-    event_groups.o(i.xEventGroupCreate) refers to heap_2.o(i.pvPortMalloc) for pvPortMalloc
-    event_groups.o(i.xEventGroupCreate) refers to list.o(i.vListInitialise) for vListInitialise
-    event_groups.o(i.xEventGroupGetBitsFromISR) refers to port.o(.emb_text) for ulPortSetInterruptMask
-    event_groups.o(i.xEventGroupSetBits) refers to tasks.o(i.vTaskSuspendAll) for vTaskSuspendAll
-    event_groups.o(i.xEventGroupSetBits) refers to tasks.o(i.xTaskRemoveFromUnorderedEventList) for xTaskRemoveFromUnorderedEventList
-    event_groups.o(i.xEventGroupSetBits) refers to tasks.o(i.xTaskResumeAll) for xTaskResumeAll
-    event_groups.o(i.xEventGroupSync) refers to tasks.o(i.vTaskSuspendAll) for vTaskSuspendAll
-    event_groups.o(i.xEventGroupSync) refers to event_groups.o(i.xEventGroupSetBits) for xEventGroupSetBits
-    event_groups.o(i.xEventGroupSync) refers to tasks.o(i.vTaskPlaceOnUnorderedEventList) for vTaskPlaceOnUnorderedEventList
-    event_groups.o(i.xEventGroupSync) refers to tasks.o(i.xTaskResumeAll) for xTaskResumeAll
-    event_groups.o(i.xEventGroupSync) refers to port.o(i.vPortYield) for vPortYield
-    event_groups.o(i.xEventGroupSync) refers to tasks.o(i.uxTaskResetEventItemValue) for uxTaskResetEventItemValue
-    event_groups.o(i.xEventGroupSync) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
-    event_groups.o(i.xEventGroupSync) refers to port.o(i.vPortExitCritical) for vPortExitCritical
-    event_groups.o(i.xEventGroupWaitBits) refers to tasks.o(i.vTaskSuspendAll) for vTaskSuspendAll
-    event_groups.o(i.xEventGroupWaitBits) refers to event_groups.o(i.prvTestWaitCondition) for prvTestWaitCondition
-    event_groups.o(i.xEventGroupWaitBits) refers to tasks.o(i.vTaskPlaceOnUnorderedEventList) for vTaskPlaceOnUnorderedEventList
-    event_groups.o(i.xEventGroupWaitBits) refers to tasks.o(i.xTaskResumeAll) for xTaskResumeAll
-    event_groups.o(i.xEventGroupWaitBits) refers to port.o(i.vPortYield) for vPortYield
-    event_groups.o(i.xEventGroupWaitBits) refers to tasks.o(i.uxTaskResetEventItemValue) for uxTaskResetEventItemValue
-    event_groups.o(i.xEventGroupWaitBits) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
-    event_groups.o(i.xEventGroupWaitBits) refers to port.o(i.vPortExitCritical) for vPortExitCritical
     startup_stm32f10x_hd_freertos.o(RESET) refers to startup_stm32f10x_hd_freertos.o(STACK) for __initial_sp
     startup_stm32f10x_hd_freertos.o(RESET) refers to startup_stm32f10x_hd_freertos.o(.text) for Reset_Handler
     startup_stm32f10x_hd_freertos.o(RESET) refers to stm32f10x_it.o(i.NMI_Handler) for NMI_Handler
@@ -1257,16 +1227,6 @@ Removing Unused input sections from the image.
     Removing heap_2.o(i.vPortInitialiseBlocks), (2 bytes).
     Removing heap_2.o(i.xPortGetFreeHeapSize), (12 bytes).
     Removing port.o(i.vPortEndScheduler), (2 bytes).
-    Removing event_groups.o(i.prvTestWaitCondition), (20 bytes).
-    Removing event_groups.o(i.vEventGroupClearBitsCallback), (4 bytes).
-    Removing event_groups.o(i.vEventGroupDelete), (44 bytes).
-    Removing event_groups.o(i.vEventGroupSetBitsCallback), (4 bytes).
-    Removing event_groups.o(i.xEventGroupClearBits), (26 bytes).
-    Removing event_groups.o(i.xEventGroupCreate), (26 bytes).
-    Removing event_groups.o(i.xEventGroupGetBitsFromISR), (18 bytes).
-    Removing event_groups.o(i.xEventGroupSetBits), (100 bytes).
-    Removing event_groups.o(i.xEventGroupSync), (122 bytes).
-    Removing event_groups.o(i.xEventGroupWaitBits), (160 bytes).
     Removing startup_stm32f10x_hd_freertos.o(HEAP), (512 bytes).
     Removing dadd.o(.text), (334 bytes).
     Removing dmul.o(.text), (228 bytes).
@@ -1275,7 +1235,7 @@ Removing Unused input sections from the image.
     Removing cdrcmple.o(.text), (40 bytes).
     Removing depilogue.o(.text), (182 bytes).
 
-570 unused section(s) (total 30424 bytes) removed from the image.
+560 unused section(s) (total 29900 bytes) removed from the image.
 
 ==============================================================================
 
@@ -1285,43 +1245,43 @@ Image Symbol Table
 
     Symbol Name                              Value     Ov Type        Size  Object(Section)
 
-    ../clib/microlib/division.c              0x00000000   Number         0  uidiv.o ABSOLUTE
     ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
+    ../clib/microlib/division.c              0x00000000   Number         0  uidiv.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf2.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfb.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf0.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf1.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf7.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf3.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf4.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf5.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf2.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf7.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfa.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf8.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf0.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfb.o ABSOLUTE
     ../clib/microlib/printf/stubs.s          0x00000000   Number         0  stubs.o ABSOLUTE
     ../clib/microlib/stdio/fputc.c           0x00000000   Number         0  fputc.o ABSOLUTE
     ../clib/microlib/stdio/semi.s            0x00000000   Number         0  semi.o ABSOLUTE
     ../clib/microlib/stdio/streams.c         0x00000000   Number         0  stdout.o ABSOLUTE
-    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpya.o ABSOLUTE
     ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpyb.o ABSOLUTE
-    ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
+    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpya.o ABSOLUTE
     ../clib/microlib/stubs.s                 0x00000000   Number         0  iusesemip.o ABSOLUTE
+    ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
     ../fplib/microlib/fpadd.c                0x00000000   Number         0  dadd.o ABSOLUTE
     ../fplib/microlib/fpdiv.c                0x00000000   Number         0  ddiv.o ABSOLUTE
     ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  depilogue.o ABSOLUTE
@@ -1355,7 +1315,6 @@ Image Symbol Table
     ..\..\..\Utilities\STM32_RedBull\stm32_redbull.c 0x00000000   Number         0  stm32_redbull.o ABSOLUTE
     ..\..\..\Utilities\STM32_RedBull\stm32_redbull_lcd.c 0x00000000   Number         0  stm32_redbull_lcd.o ABSOLUTE
     ..\..\..\Utilities\Third_Party\FreeRTOS\Source\croutine.c 0x00000000   Number         0  croutine.o ABSOLUTE
-    ..\..\..\Utilities\Third_Party\FreeRTOS\Source\event_groups.c 0x00000000   Number         0  event_groups.o ABSOLUTE
     ..\..\..\Utilities\Third_Party\FreeRTOS\Source\list.c 0x00000000   Number         0  list.o ABSOLUTE
     ..\..\..\Utilities\Third_Party\FreeRTOS\Source\portable\MemMang\heap_2.c 0x00000000   Number         0  heap_2.o ABSOLUTE
     ..\..\..\Utilities\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM3\port.c 0x00000000   Number         0  port.o ABSOLUTE
@@ -1732,21 +1691,21 @@ Memory Map of the image
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x08000000   0x00000130   Data   RO         4239    RESET               startup_stm32f10x_hd_freertos.o
-    0x08000130   0x00000000   Code   RO         4244  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x08000130   0x00000004   Code   RO         4512    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
-    0x08000134   0x00000004   Code   RO         4515    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x08000138   0x00000000   Code   RO         4517    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x08000138   0x00000000   Code   RO         4519    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x08000138   0x00000008   Code   RO         4520    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x08000140   0x00000000   Code   RO         4522    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
-    0x08000140   0x00000000   Code   RO         4524    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
-    0x08000140   0x00000004   Code   RO         4513    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x08000000   0x00000130   Data   RO         4171    RESET               startup_stm32f10x_hd_freertos.o
+    0x08000130   0x00000000   Code   RO         4176  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x08000130   0x00000004   Code   RO         4444    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x08000134   0x00000004   Code   RO         4447    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x08000138   0x00000000   Code   RO         4449    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x08000138   0x00000000   Code   RO         4451    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x08000138   0x00000008   Code   RO         4452    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x08000140   0x00000000   Code   RO         4454    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x08000140   0x00000000   Code   RO         4456    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x08000140   0x00000004   Code   RO         4445    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
     0x08000144   0x000000a2   Code   RO         4104    .emb_text           port.o
     0x080001e6   0x00000002   PAD
-    0x080001e8   0x00000024   Code   RO         4240    .text               startup_stm32f10x_hd_freertos.o
-    0x0800020c   0x0000002c   Code   RO         4529    .text               mc_w.l(uidiv.o)
-    0x08000238   0x00000024   Code   RO         4544    .text               mc_w.l(init.o)
+    0x080001e8   0x00000024   Code   RO         4172    .text               startup_stm32f10x_hd_freertos.o
+    0x0800020c   0x0000002c   Code   RO         4461    .text               mc_w.l(uidiv.o)
+    0x08000238   0x00000024   Code   RO         4476    .text               mc_w.l(init.o)
     0x0800025c   0x00000084   Code   RO          152    i.Background_Task   main.o
     0x080002e0   0x00000002   Code   RO            1    i.BusFault_Handler  stm32f10x_it.o
     0x080002e2   0x00000002   Code   RO            2    i.DebugMon_Handler  stm32f10x_it.o
@@ -1782,15 +1741,15 @@ Memory Map of the image
     0x0800098c   0x00000050   Code   RO         3328    i.SystemInit        system_stm32f10x.o
     0x080009dc   0x00000002   Code   RO            9    i.UsageFault_Handler  stm32f10x_it.o
     0x080009de   0x00000002   PAD
-    0x080009e0   0x00000028   Code   RO         4408    i.__0sprintf$6      mc_w.l(printf6.o)
-    0x08000a08   0x0000000e   Code   RO         4558    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x08000a16   0x00000002   Code   RO         4559    i.__scatterload_null  mc_w.l(handlers.o)
-    0x08000a18   0x0000000e   Code   RO         4560    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x080009e0   0x00000028   Code   RO         4340    i.__0sprintf$6      mc_w.l(printf6.o)
+    0x08000a08   0x0000000e   Code   RO         4490    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x08000a16   0x00000002   Code   RO         4491    i.__scatterload_null  mc_w.l(handlers.o)
+    0x08000a18   0x0000000e   Code   RO         4492    i.__scatterload_zeroinit  mc_w.l(handlers.o)
     0x08000a26   0x00000002   PAD
-    0x08000a28   0x000002f0   Code   RO         4413    i._printf_core      mc_w.l(printf6.o)
-    0x08000d18   0x00000024   Code   RO         4414    i._printf_post_padding  mc_w.l(printf6.o)
-    0x08000d3c   0x0000002e   Code   RO         4415    i._printf_pre_padding  mc_w.l(printf6.o)
-    0x08000d6a   0x0000000a   Code   RO         4417    i._sputc            mc_w.l(printf6.o)
+    0x08000a28   0x000002f0   Code   RO         4345    i._printf_core      mc_w.l(printf6.o)
+    0x08000d18   0x00000024   Code   RO         4346    i._printf_post_padding  mc_w.l(printf6.o)
+    0x08000d3c   0x0000002e   Code   RO         4347    i._printf_pre_padding  mc_w.l(printf6.o)
+    0x08000d6a   0x0000000a   Code   RO         4349    i._sputc            mc_w.l(printf6.o)
     0x08000d74   0x0000001c   Code   RO         3438    i.delay             stm32_redbull_lcd.o
     0x08000d90   0x000000d4   Code   RO          154    i.main              main.o
     0x08000e64   0x00000034   Code   RO         3869    i.prvAddCurrentTaskToDelayedList  tasks.o
@@ -1824,7 +1783,7 @@ Memory Map of the image
     0x08001538   0x0000002a   Data   RO         3360    .constdata          stm32_redbull.o
     0x08001562   0x00000900   Data   RO         3440    .constdata          stm32_redbull_lcd.o
     0x08001e62   0x00000002   PAD
-    0x08001e64   0x00000020   Data   RO         4556    Region$$Table       anon$$obj.o
+    0x08001e64   0x00000020   Data   RO         4488    Region$$Table       anon$$obj.o
 
 
     Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00004940, Max: 0x00010000, ABSOLUTE)
@@ -1838,7 +1797,7 @@ Memory Map of the image
     0x20000074   0x00000004   Data   RW         4114    .data               port.o
     0x20000078   0x000000c8   Zero   RW         3900    .bss                tasks.o
     0x20000140   0x00004400   Zero   RW         4075    .bss                heap_2.o
-    0x20004540   0x00000400   Zero   RW         4237    STACK               startup_stm32f10x_hd_freertos.o
+    0x20004540   0x00000400   Zero   RW         4169    STACK               startup_stm32f10x_hd_freertos.o
 
 
 ==============================================================================

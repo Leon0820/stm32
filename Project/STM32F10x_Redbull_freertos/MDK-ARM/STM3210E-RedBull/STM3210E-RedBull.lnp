@@ -35,7 +35,6 @@
 ".\stm3210e-redbull\timers.o"
 ".\stm3210e-redbull\heap_2.o"
 ".\stm3210e-redbull\port.o"
-".\stm3210e-redbull\event_groups.o"
 ".\stm3210e-redbull\startup_stm32f10x_hd_freertos.o"
 --library_type=microlib --strict --scatter ".\STM3210E-RedBull\STM3210E-RedBull.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols

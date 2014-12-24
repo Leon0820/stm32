@@ -1,0 +1,379 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;*******************************************************
+                       *************************************************
+    2 00000000         ;  * @file    cmOS.s
+    3 00000000         ;  * @author  ÄÏÓÀÌÎ
+    4 00000000         ;  * @version V1.0.0
+    5 00000000         ;  * @date    2014-12-22
+    6 00000000         ;  * @brief   ÓëcmOSÓÐ¹ØµÄµ×²ã²Ù×÷£¬¿ª¹ØÖÐ¶Ï£¬ÉÏÏÂÎÄÇÐ»»
+                       
+    7 00000000         ;*******************************************************
+                       *************************************************
+    8 00000000         
+    9 00000000         ;*******************************************************
+                       *************************************************
+   10 00000000         ;                                           PUBLIC FUNCT
+                       IONS
+   11 00000000         ;*******************************************************
+                       *************************************************
+   12 00000000         
+   13 00000000                 EXTERN           OSPrioCur   ;µ±Ç°ÈÎÎñµÄ¶ÑÕ»Ö¸Õë
+                                                            
+   14 00000000                 EXTERN           OSPrioHighRdy ;ÏÂ¸ö½«ÒªÔËÐÐÈÎÎñ
+                                                            µÄ¶ÑÕ»Ö¸Õë
+   15 00000000                 EXTERN           OSTCBCur
+   16 00000000                 EXTERN           OSTCBHighRdy
+   17 00000000         
+   18 00000000                 EXPORT           DisInt      ;Functions declared
+                                                             in this file
+   19 00000000                 EXPORT           EnInt
+   20 00000000         
+   21 00000000                 EXPORT           OS_CONTEX_SWITCH ;ÉÏÏÂÎÄÇÐ»»
+   22 00000000                 EXPORT           OS_START    ;¿ªÊ¼¶àÈÎÎñµ÷¶È
+   23 00000000         
+   24 00000000                 EXPORT           PendSV_Handler ;ÐèÒªÉùÃ÷£¬·ñÔò»
+                                                            á½øÈëÏµÍ³Ä¬ÈÏ½Ó¿Ú
+   25 00000000         ;*******************************************************
+                       *************************************************
+   26 00000000         ;                                                EQUATES
+                       
+   27 00000000         ;*******************************************************
+                       *************************************************
+   28 00000000 E000ED04 
+                       NVIC_INT_CTRL
+                               EQU              0xE000ED04  ; ÖÐ¶Ï¿ØÖÆ¼Ä´æÆ÷
+   29 00000000 E000ED20 
+                       NVIC_SYSPRI2
+                               EQU              0xE000ED20  ; ÏµÍ³ÓÅÏÈ¼¶¼Ä´æÆ÷2
+                                                            
+   30 00000000 FFFF0000 
+                       NVIC_PENDSV_PRI
+                               EQU              0xFFFF0000  ; Èí¼þÖÐ¶ÏºÍÏµÍ³½ÚÅ
+                                                            ÄÖÐ¶Ï
+   31 00000000 10000000 
+                       NVIC_PENDSVSET
+                               EQU              0x10000000  ; ´¥·¢Èí¼þÖÐ¶ÏµÄÖµ
+   32 00000000         ;*******************************************************
+                       *************************************************
+   33 00000000         ;                                      CODE GENERATION D
+                       IRECTIVES
+   34 00000000         ;*******************************************************
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+                       *************************************************
+   35 00000000         
+   36 00000000                 AREA             |.text|, CODE, READONLY, ALIGN=
+2
+   37 00000000                 THUMB
+   38 00000000                 REQUIRE8
+   39 00000000                 PRESERVE8
+   40 00000000         
+   41 00000000         ;*******************************************************
+                       **************************************************
+   42 00000000         ;º¯ÊýÃû£ºuint32_t DisInt(void);
+   43 00000000         ;   void     EnInt(uint32_t cpu_sr); 
+   44 00000000         ;Ëµ  Ã÷: ½ûÖ¹/ÔÊÐíÖÐ¶Ï
+   45 00000000         ;
+   46 00000000         ;µ÷  ÓÃ£º
+   47 00000000         ;         void Task (void *p_arg)
+   48 00000000         ;         {
+   49 00000000         ;   uint32_t  cpu_sr;
+   50 00000000         ;      cpu_sr = DisInt();              
+   51 00000000         ;                   :
+   52 00000000         ;                   :
+   53 00000000         ;       EnInt(cpu_sr);              
+   54 00000000         ;         }
+   55 00000000         ;*******************************************************
+                       **************************************************
+   56 00000000         ;³ÌÐò·µ»ØÖµ±£´æÔÚR0ÖÐ
+   57 00000000         DisInt
+   58 00000000 F3EF 8010       MRS              R0, PRIMASK ;±£´æÈ«¾ÖÖÐ¶Ï±êÖ¾µ½
+                                                            R0 ; Set prio int m
+                                                            ask to mask all (ex
+                                                            cept faults)
+   59 00000004 B672            CPSID            I           ;¹ØÖÐ¶Ï
+   60 00000006 4770            BX               LR
+   61 00000008         ;³ÌÐòµÚÒ»¸ö²ÎÊý¼´ÎªR0
+   62 00000008         EnInt
+   63 00000008 F380 8810       MSR              PRIMASK, R0 ;»Ö¸´È«¾ÖÖÐ¶Ï±êÖ¾
+   64 0000000C B662            CPSIE            I           ;¿ªÖÐ¶Ï
+   65 0000000E 4770            BX               LR
+   66 00000010         ;*******************************************************
+                       *************************************************
+   67 00000010         ;                              ÈÎÎñÉÏÏÂÎÄÇÐ»»
+   68 00000010         ;*******************************************************
+                       *************************************************
+   69 00000010         OS_CONTEX_SWITCH
+   70 00000010 B430            PUSH             {R4, R5}
+   71 00000012 4C17            LDR              R4, =NVIC_INT_CTRL ;ÈË¹¤´¥·¢Pen
+                                                            dSVÒì³££¬²Î¿¼ucos!!
+                                                            !
+   72 00000014 F04F 5580       LDR              R5, =NVIC_PENDSVSET
+   73 00000018 6025            STR              R5, [R4]
+   74 0000001A BC30            POP              {R4, R5}
+   75 0000001C 4770            BX               LR
+   76 0000001E         ;*******************************************************
+                       *************************************************
+   77 0000001E         ;                            ÄÚºËÆô¶¯
+   78 0000001E         ;*******************************************************
+                       *************************************************
+   79 0000001E         OS_START
+   80 0000001E 4C15            LDR              R4, =NVIC_SYSPRI2 ; set the Pen
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+                                                            dSV exception prior
+                                                            ity
+   81 00000020 4D15            LDR              R5, =NVIC_PENDSV_PRI
+   82 00000022 6025            STR              R5, [R4]
+   83 00000024         
+   84 00000024 F04F 0400       MOV              R4, #0      ; set the PSP to 0 
+                                                            for initial context
+                                                             switch call
+   85 00000028 F384 8809       MSR              PSP, R4
+   86 0000002C         
+   87 0000002C 4C10            LDR              R4, =NVIC_INT_CTRL ;rigger the 
+                                                            PendSV exception (c
+                                                            auses context switc
+                                                            h)
+   88 0000002E F04F 5580       LDR              R5, =NVIC_PENDSVSET
+   89 00000032 6025            STR              R5, [R4]
+   90 00000034         
+   91 00000034 B662            CPSIE            I           ;enable interrupts 
+                                                            at processor level
+   92 00000036         
+   93 00000036 E7FE            B                .           ;should never get h
+                                                            ere
+   94 00000038         ;*******************************************************
+                       *************************************************
+   95 00000038         ;                               PendSVÒì³£´¦Àí
+   96 00000038         ;*******************************************************
+                       *************************************************
+   97 00000038         PendSV_Handler
+   98 00000038 B672            CPSID            I           ; Prevent interrupt
+                                                            ion during context 
+                                                            switch
+   99 0000003A F3EF 8009       MRS              R0, PSP     ; PSP is process st
+                                                            ack pointer 
+  100 0000003E B128            CBZ              R0, Skip_Save ; Skip register s
+                                                            ave the first time
+  101 00000040         
+  102 00000040         ;±£´æµ±Ç°ÈÎÎñµÄÉÏÏÂÎÄ
+  103 00000040 3820            SUBS             R0, R0, #0x20 ; Save remaining 
+                                                            regs r4-11 on proce
+                                                            ss stack
+  104 00000042 E880 0FF0       STM              R0, {R4-R11}
+  105 00000046         
+  106 00000046 490D            LDR              R1, =OSTCBCur ; OS_CUR_SP = SP
+  107 00000048 6809            LDR              R1, [R1]
+  108 0000004A 6008            STR              R0, [R1]    ; R0 is SP of proce
+                                                            ss being switched o
+                                                            ut
+  109 0000004C         
+  110 0000004C         Skip_Save
+  111 0000004C 480C            LDR              R0, =OSPrioCur ; OSPrioCur = OS
+                                                            PrioHighRdy;
+  112 0000004E 490D            LDR              R1, =OSPrioHighRdy
+  113 00000050 780A            LDRB             R2, [R1]
+  114 00000052 7002            STRB             R2, [R0]
+  115 00000054         
+  116 00000054 4809            LDR              R0, =OSTCBCur 
+                                                            ; SP  = OS_NEXT_SP;
+                                                            
+  117 00000056 490C            LDR              R1, =OSTCBHighRdy ; OSTCBCur = 
+
+
+
+ARM Macro Assembler    Page 4 
+
+
+                                                            OSTCBHighRdy
+  118 00000058 680A            LDR              R2, [R1]
+  119 0000005A 6002            STR              R2, [R0]
+  120 0000005C         
+  121 0000005C 6810            LDR              R0, [R2]    ; R0 is new process
+                                                             SP; 
+  122 0000005E E890 0FF0       LDM              R0, {R4-R11} ; Restore r4-11 fr
+                                                            om new process stac
+                                                            k
+  123 00000062 3020            ADDS             R0, R0, #0x20
+  124 00000064 F380 8809       MSR              PSP, R0     ; Load PSP with new
+                                                             process SP
+  125 00000068 F04E 0E04       ORR              LR, LR, #0x04 ; Ensure exceptio
+                                                            n return uses proce
+                                                            ss stack
+  126 0000006C B662            CPSIE            I
+  127 0000006E 4770            BX               LR          ; Exception return 
+                                                            will restore remain
+                                                            ing context
+  128 00000070         
+  129 00000070                 END
+              E000ED04 
+              E000ED20 
+              FFFF0000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\stm321
+0e-redbull\cmos_cpu.d -o.\stm3210e-redbull\cmos_cpu.o -I"D:\Program Files\Keil_
+v5\ARM\RV31\INC" -I"D:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Inc
+lude" -I"D:\Program Files\Keil_v5\ARM\Inc\++ST\STM32F10x" --predefine="__MICROL
+IB SETA 1" --list=.\stm3210e-redbull\cmos_cpu.lst ..\cmOS\cmOS_CPU.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+.text 00000000
+
+Symbol: .text
+   Definitions
+      At line 36 in file ..\cmOS\cmOS_CPU.s
+   Uses
+      None
+Comment: .text unused
+DisInt 00000000
+
+Symbol: DisInt
+   Definitions
+      At line 57 in file ..\cmOS\cmOS_CPU.s
+   Uses
+      At line 18 in file ..\cmOS\cmOS_CPU.s
+Comment: DisInt used once
+EnInt 00000008
+
+Symbol: EnInt
+   Definitions
+      At line 62 in file ..\cmOS\cmOS_CPU.s
+   Uses
+      At line 19 in file ..\cmOS\cmOS_CPU.s
+Comment: EnInt used once
+OS_CONTEX_SWITCH 00000010
+
+Symbol: OS_CONTEX_SWITCH
+   Definitions
+      At line 69 in file ..\cmOS\cmOS_CPU.s
+   Uses
+      At line 21 in file ..\cmOS\cmOS_CPU.s
+Comment: OS_CONTEX_SWITCH used once
+OS_START 0000001E
+
+Symbol: OS_START
+   Definitions
+      At line 79 in file ..\cmOS\cmOS_CPU.s
+   Uses
+      At line 22 in file ..\cmOS\cmOS_CPU.s
+Comment: OS_START used once
+PendSV_Handler 00000038
+
+Symbol: PendSV_Handler
+   Definitions
+      At line 97 in file ..\cmOS\cmOS_CPU.s
+   Uses
+      At line 24 in file ..\cmOS\cmOS_CPU.s
+Comment: PendSV_Handler used once
+Skip_Save 0000004C
+
+Symbol: Skip_Save
+   Definitions
+      At line 110 in file ..\cmOS\cmOS_CPU.s
+   Uses
+      At line 100 in file ..\cmOS\cmOS_CPU.s
+Comment: Skip_Save used once
+7 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+NVIC_INT_CTRL E000ED04
+
+Symbol: NVIC_INT_CTRL
+   Definitions
+      At line 28 in file ..\cmOS\cmOS_CPU.s
+   Uses
+      At line 71 in file ..\cmOS\cmOS_CPU.s
+      At line 87 in file ..\cmOS\cmOS_CPU.s
+
+NVIC_PENDSVSET 10000000
+
+Symbol: NVIC_PENDSVSET
+   Definitions
+      At line 31 in file ..\cmOS\cmOS_CPU.s
+   Uses
+      At line 72 in file ..\cmOS\cmOS_CPU.s
+      At line 88 in file ..\cmOS\cmOS_CPU.s
+
+NVIC_PENDSV_PRI FFFF0000
+
+Symbol: NVIC_PENDSV_PRI
+   Definitions
+      At line 30 in file ..\cmOS\cmOS_CPU.s
+   Uses
+      At line 81 in file ..\cmOS\cmOS_CPU.s
+Comment: NVIC_PENDSV_PRI used once
+NVIC_SYSPRI2 E000ED20
+
+Symbol: NVIC_SYSPRI2
+   Definitions
+      At line 29 in file ..\cmOS\cmOS_CPU.s
+   Uses
+      At line 80 in file ..\cmOS\cmOS_CPU.s
+Comment: NVIC_SYSPRI2 used once
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+OSPrioCur 00000000
+
+Symbol: OSPrioCur
+   Definitions
+      At line 13 in file ..\cmOS\cmOS_CPU.s
+   Uses
+      At line 111 in file ..\cmOS\cmOS_CPU.s
+Comment: OSPrioCur used once
+OSPrioHighRdy 00000000
+
+Symbol: OSPrioHighRdy
+   Definitions
+      At line 14 in file ..\cmOS\cmOS_CPU.s
+   Uses
+      At line 112 in file ..\cmOS\cmOS_CPU.s
+Comment: OSPrioHighRdy used once
+OSTCBCur 00000000
+
+Symbol: OSTCBCur
+   Definitions
+      At line 15 in file ..\cmOS\cmOS_CPU.s
+   Uses
+      At line 106 in file ..\cmOS\cmOS_CPU.s
+      At line 116 in file ..\cmOS\cmOS_CPU.s
+
+OSTCBHighRdy 00000000
+
+Symbol: OSTCBHighRdy
+   Definitions
+      At line 16 in file ..\cmOS\cmOS_CPU.s
+   Uses
+      At line 117 in file ..\cmOS\cmOS_CPU.s
+Comment: OSTCBHighRdy used once
+4 symbols
+348 symbols in table
